@@ -1,0 +1,13 @@
+<span class="fa-icons">
+  <p>{{ noOfLikes }}</p>
+  <button
+    class="btn"
+    [ngClass]="{
+      'btn-success': !isFavorite,
+      'btn-danger': isFavorite
+    }"
+    (click)="onClick()"
+  >
+    {{ isFavorite ? "Dislike" : "Like" }}
+  </button>
+</span>

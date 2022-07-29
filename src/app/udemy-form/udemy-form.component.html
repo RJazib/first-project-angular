@@ -1,0 +1,55 @@
+<form #udemyForm="ngForm">
+  <div class="form-group">
+    <label for="name">Course Name</label>
+    <input
+      ngModel
+      required
+      minlength="3"
+      name="name"
+      #name="ngModel"
+      type="text"
+      id="name"
+      class="form-control"
+    />
+    <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+      <div *ngIf="name.errors?.['required']">Name is Required</div>
+      <div *ngIf="name.errors?.['minlength']">
+        Minimum {{name.errors?.['minlength'].requiredLength}} characters
+        required
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="category"> Category</label>
+    <select
+      id="category"
+      ngModel
+      required
+      #category="ngModel"
+      name="category"
+      class="form-control"
+    >
+      <option value="" disabled selected>Choose Category</option>
+      <option *ngFor="let category of categories" [ngValue]="category">
+        {{ category.name }}
+      </option>
+    </select>
+    <div *ngIf="category.touched && !category.valid" class="alert alert-danger">
+      Category is Required
+    </div>
+  </div>
+  <div class="checkbox">
+    <label for="moneyBack">
+      <input
+        type="checkbox"
+        id="moneyBack"
+        ngModel
+        #moneyBack="ngModel"
+        name="moneyBack"
+      />
+      30-days Money back gaurentee
+    </label>
+  </div>
+  <p>{{ udemyForm.value | json }}</p>
+  <button class="btn btn-primary" [disabled]="udemyForm.invalid">Create</button>
+</form>

@@ -1,0 +1,43 @@
+<form [formGroup]="signupForm">
+  <div class="form-group">
+    <label for="username">Username </label>
+    <input
+      formControlName="username"
+      type="text"
+      id="username"
+      class="form-control"
+      (change)="log(username)"
+    />
+    <div *ngIf="username?.pending" class="alert alert-info">
+      Checking for uniqueness
+      <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="username?.touched && username?.invalid"
+    >
+      <div *ngIf="username?.errors?.['required']">Username is required</div>
+      <div *ngIf="username?.errors?.['minlength']">
+        Minimum
+        {{username?.errors?.['minlength'].requiredLength}}
+        characters required
+      </div>
+      <div *ngIf="username?.errors?.['cannotContainSpace']">
+        Username should not contain space
+      </div>
+      <div *ngIf="username?.errors?.['shouldbeUnique']">
+        Username alredy taken.
+      </div>
+    </div>
+  </div>
+  <div class="for-control">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      type="password"
+      id="password"
+      class="form-control"
+    />
+  </div>
+  <button class="btn btn-primary" type="submit">Signup</button>
+</form>
